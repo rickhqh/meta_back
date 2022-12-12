@@ -106,3 +106,10 @@ redisson:
     subscriptionsPerConnection: 5
     # DNS监测时间间隔，单位：毫秒
     dnsMonitoringInterval: 5000
+
+
+files:
+  upload:
+    #    host: http://localhost:8080
+    host: http://meta.rick.icu
+    path: /usr/local/meta/files

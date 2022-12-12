@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.meta.mapper.FilesMapper">
+
+    <resultMap type="Files" id="FilesResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="size" column="size"/>
+        <result property="url" column="url"/>
+        <result property="md5" column="md5"/>
+    </resultMap>
+
+    <sql id="selectFilesVo">
+        select id, name, type, size, url, md5
+        from mt_file
+    </sql>
+
+    <select id="selectFilesList" parameterType="Files" resultMap="FilesResult">
+        <include refid="selectFilesVo"/>
+        <where>
+            <if test="name != null  and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="type != null  and type != ''">
+                and type = #{type}
+            </if>
+            <if test="size != null ">
+                and size = #{size}
+            </if>
+            <if test="url != null  and url != ''">
+                and url = #{url}
+            </if>
+            <if test="md5 != null  and md5 != ''">
+                and md5 = #{md5}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectFilesById" parameterType="Long"
+            resultMap="FilesResult">
+        <include refid="selectFilesVo"/>
+        where id = #{id}
+    </select>
+
+
+    <insert id="insertFiles" parameterType="Files" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into mt_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,
+            </if>
+            <if test="type != null">type,
+            </if>
+            <if test="size != null">size,
+            </if>
+            <if test="url != null">url,
+            </if>
+            <if test="md5 != null">md5,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},
+            </if>
+            <if test="type != null">#{type},
+            </if>
+            <if test="size != null">#{size},
+            </if>
+            <if test="url != null">#{url},
+            </if>
+            <if test="md5 != null">#{md5},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateFiles" parameterType="Files">
+        update mt_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name =
+                #{name},
+            </if>
+            <if test="type != null">type =
+                #{type},
+            </if>
+            <if test="size != null">size =
+                #{size},
+            </if>
+            <if test="url != null">url =
+                #{url},
+            </if>
+            <if test="md5 != null">md5 =
+                #{md5},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFilesById" parameterType="Long">
+        delete
+        from mt_file
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteFilesByIds" parameterType="String">
+        delete from mt_file where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
