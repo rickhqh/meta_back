@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.meta.mapper.PageMapper">
+
+    <resultMap type="Page" id="PageResult">
+        <result property="id" column="id"/>
+        <result property="pageName" column="page_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="articleId" column="article_id"/>
+    </resultMap>
+
+    <sql id="selectPageVo">
+        select id, page_name, create_time, update_time, article_id
+        from mt_page
+    </sql>
+
+    <select id="selectPageList" parameterType="Page" resultMap="PageResult">
+        <include refid="selectPageVo"/>
+        <where>
+            <if test="pageName != null  and pageName != ''">and page_name like concat('%', #{pageName}, '%')</if>
+            <if test="articleId != null ">and article_id = #{articleId}</if>
+        </where>
+    </select>
+
+    <select id="selectPageById" parameterType="Long" resultMap="PageResult">
+        <include refid="selectPageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPage" parameterType="Page" useGeneratedKeys="true" keyProperty="id">
+        insert into mt_page
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pageName != null and pageName != ''">page_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="articleId != null">article_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pageName != null and pageName != ''">#{pageName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="articleId != null">#{articleId},</if>
+        </trim>
+    </insert>
+
+    <update id="updatePage" parameterType="Page">
+        update mt_page
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pageName != null and pageName != ''">page_name = #{pageName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="articleId != null">article_id = #{articleId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePageById" parameterType="Long">
+        delete
+        from mt_page
+        where id = #{id}
+    </delete>
+
+    <delete id="deletePageByIds" parameterType="String">
+        delete from mt_page where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
