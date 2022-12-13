@@ -14,9 +14,6 @@ import lombok.Data;
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * $column.columnComment
-     */
     private Long id;
 
     /**
