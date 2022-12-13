@@ -1,6 +1,7 @@
 package com.ruoyi.meta.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.meta.domain.Article;
 import com.ruoyi.meta.mapper.ArticleMapper;
 import com.ruoyi.meta.service.IArticleService;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Service
 public class ArticleServiceImpl implements IArticleService {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -51,6 +53,7 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public int insertArticle(Article article) {
         article.setCreateTime(DateUtils.getNowDate());
+        article.setUserId(SecurityUtils.getUserId());
         return articleMapper.insertArticle(article);
     }
 
@@ -63,6 +66,7 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public int updateArticle(Article article) {
         article.setUpdateTime(DateUtils.getNowDate());
+        article.setUserId(SecurityUtils.getUserId());
         return articleMapper.updateArticle(article);
     }
 
