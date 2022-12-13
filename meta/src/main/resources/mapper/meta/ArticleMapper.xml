@@ -7,14 +7,23 @@
     <resultMap type="Article" id="ArticleResult">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
         <result property="articleTitle" column="article_title"/>
         <result property="articleContent" column="article_content"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <sql id="selectArticleVo">
-        select id, user_id, article_title, article_content, create_time, update_time
+        select id,
+               user_id,
+               user_name,
+               article_title,
+               article_content,
+               create_time,
+               update_time,
+               status
         from mt_article
     </sql>
 
@@ -24,6 +33,7 @@
             <if test="userId != null ">and user_id = #{userId}</if>
             <if test="articleTitle != null  and articleTitle != ''">and article_title = #{articleTitle}</if>
             <if test="articleContent != null  and articleContent != ''">and article_content = #{articleContent}</if>
+            <if test="status != null ">and status = #{status}</if>
         </where>
     </select>
 
@@ -36,17 +46,21 @@
         insert into mt_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
             <if test="articleTitle != null and articleTitle != ''">article_title,</if>
             <if test="articleContent != null and articleContent != ''">article_content,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
+            <if test="status != null">status,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
             <if test="articleTitle != null and articleTitle != ''">#{articleTitle},</if>
             <if test="articleContent != null and articleContent != ''">#{articleContent},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null">#{status},</if>
         </trim>
     </insert>
 
@@ -54,10 +68,12 @@
         update mt_article
         <trim prefix="SET" suffixOverrides=",">
             <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
             <if test="articleTitle != null and articleTitle != ''">article_title = #{articleTitle},</if>
             <if test="articleContent != null and articleContent != ''">article_content = #{articleContent},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null">status = #{status},</if>
         </trim>
         where id = #{id}
     </update>

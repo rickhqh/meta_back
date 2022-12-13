@@ -54,6 +54,7 @@ public class ArticleServiceImpl implements IArticleService {
     public int insertArticle(Article article) {
         article.setCreateTime(DateUtils.getNowDate());
         article.setUserId(SecurityUtils.getUserId());
+        article.setUserName(SecurityUtils.getUsername());
         return articleMapper.insertArticle(article);
     }
 
@@ -67,6 +68,7 @@ public class ArticleServiceImpl implements IArticleService {
     public int updateArticle(Article article) {
         article.setUpdateTime(DateUtils.getNowDate());
         article.setUserId(SecurityUtils.getUserId());
+        article.setUserName(SecurityUtils.getUsername());
         return articleMapper.updateArticle(article);
     }
 

@@ -2,8 +2,7 @@ package com.ruoyi.meta.domain;
 
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 
 /**
  * 文章对象 mt_article
@@ -11,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author rick
  * @date 2022-12-12
  */
+@Data
 public class Article extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -22,8 +22,13 @@ public class Article extends BaseEntity {
     /**
      * 作者
      */
-    @Excel(name = "作者")
+    @Excel(name = "作者id")
     private Long userId;
+    /**
+     * 作者
+     */
+    @Excel(name = "作者")
+    private String userName;
 
     /**
      * 标题
@@ -36,48 +41,9 @@ public class Article extends BaseEntity {
      */
     @Excel(name = "内容")
     private String articleContent;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
-
-    public String getArticleContent() {
-        return articleContent;
-    }
-
-    public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("userId", getUserId())
-                .append("articleTitle", getArticleTitle())
-                .append("articleContent", getArticleContent())
-                .append("createTime", getCreateTime())
-                .append("updateTime", getUpdateTime())
-                .toString();
-    }
+    /**
+     * 状态
+     */
+    @Excel(name = "状态")
+    private String status;
 }

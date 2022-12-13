@@ -24,7 +24,7 @@ import java.util.List;
  */
 @ApiOperation("日程")
 @RestController
-@RequestMapping("/meta/schedule/")
+@RequestMapping("/meta/schedule")
 public class ScheduleController extends BaseController {
     @Autowired
     private IScheduleService scheduleService;
