@@ -7,12 +7,13 @@
     <resultMap type="Schedule" id="ScheduleResult">
         <result property="id" column="id"/>
         <result property="scheduleContent" column="schedule_content"/>
+        <result property="scheduleTime" column="schedule_time"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="selectScheduleVo">
-        select id, schedule_content, create_time, update_time
+        select id, schedule_content, schedule_time, create_time, update_time
         from mt_schedule
     </sql>
 
@@ -20,6 +21,7 @@
         <include refid="selectScheduleVo"/>
         <where>
             <if test="scheduleContent != null  and scheduleContent != ''">and schedule_content = #{scheduleContent}</if>
+            <if test="scheduleTime !=null and scheduleTime !='' ">and schedule_time=#{scheduleTime}</if>
         </where>
     </select>
 
@@ -32,11 +34,13 @@
         insert into mt_schedule
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">schedule_content,</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">#{scheduleContent},</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
         </trim>
@@ -46,6 +50,7 @@
         update mt_schedule
         <trim prefix="SET" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">schedule_content = #{scheduleContent},</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
