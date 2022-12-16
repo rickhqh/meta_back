@@ -34,7 +34,7 @@
         insert into mt_schedule
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">schedule_content,</if>
-            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime,</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">schedule_time,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
         </trim>
@@ -50,7 +50,7 @@
         update mt_schedule
         <trim prefix="SET" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">schedule_content = #{scheduleContent},</if>
-            <if test="scheduleTime !=null and scheduleTime !=''">#{scheduleTime},</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">schedule_time=#{scheduleTime},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
