@@ -40,7 +40,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">#{scheduleContent},</if>
-            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">#{scheduleTime},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
         </trim>
@@ -50,7 +50,7 @@
         update mt_schedule
         <trim prefix="SET" suffixOverrides=",">
             <if test="scheduleContent != null and scheduleContent != ''">schedule_content = #{scheduleContent},</if>
-            <if test="scheduleTime !=null and scheduleTime !=''">scheduleTime</if>
+            <if test="scheduleTime !=null and scheduleTime !=''">#{scheduleTime},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
