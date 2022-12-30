@@ -111,5 +111,5 @@ redisson:
 files:
   upload:
     #    host: http://localhost:8080
-    host: http://www.cloud-conf.org/
+    host: http://www.cloud-conf.org
     path: /usr/local/meta/files/
